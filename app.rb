@@ -15,6 +15,7 @@ require('./lib/emoji')
 require('./lib/keyword')
 require('./lib/sentence')
 require('./lib/add_tags')
+require('./lib/music_notes')
 Dotenv.load
 
 get('/') do
@@ -77,7 +78,7 @@ post('/keyword_search') do
       :created_at => tweet.created_at, :text => tweet.text, :emoji => tweet.text.to_array,
       :russian => (EasyTranslate.translate(tweet.text, :to => :russian).to_s),
       :spanish => (EasyTranslate.translate(tweet.text, :to => :spanish)),
-      :japanese => (EasyTranslate.translate(tweet.text, :to => :japanese))}
+      :japanese => (EasyTranslate.translate(tweet.text, :to => :japanese)), :music => tweet.text.music_encryption}
       @translated.push(tweet_text_with_info)
     end
   end
@@ -102,7 +103,8 @@ post '/emoji' do
   :created_at => Time.now, :text => tweet, :emoji => tweet.to_array,
   :russian => (EasyTranslate.translate(tweet, :to => :russian)),
   :spanish => (EasyTranslate.translate(tweet, :to => :spanish)),
-  :japanese => (EasyTranslate.translate(tweet, :to => :japanese))}
+  :japanese => (EasyTranslate.translate(tweet, :to => :japanese)),
+  :music => tweet.music_encryption}
 
   erb(:emoji)
 end
