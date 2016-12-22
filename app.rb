@@ -7,6 +7,7 @@ require('./lib/keyword')
 require('./lib/sentence')
 require('./lib/tweet')
 require('./lib/translate')
+require('./lib/music_notes')
 require("pg")
 require('easy_translate')
 require('dotenv')
@@ -61,7 +62,8 @@ post('/keyword_search') do
     :created_at => tweet.created_at, :text => tweet.text, :emoji => tweet.text.to_array,
     :russian => (EasyTranslate.translate(tweet.text, :to => :russian).to_s),
     :spanish => (EasyTranslate.translate(tweet.text, :to => :spanish)),
-    :japanese => (EasyTranslate.translate(tweet.text, :to => :japanese))}
+    :japanese => (EasyTranslate.translate(tweet.text, :to => :japanese)),
+    :music => (tweet.text.music_encryption)}
     @translated.push(tweet_text_with_info)
   end
   if params['switch']

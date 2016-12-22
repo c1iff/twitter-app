@@ -2,6 +2,7 @@ require("sinatra/activerecord")
 require("sinatra/activerecord/rake")
 require('./lib/emoji')
 require('./lib/keyword')
+require('./lib/music_notes')
 require('twitter')
 
 namespace(:db) do
